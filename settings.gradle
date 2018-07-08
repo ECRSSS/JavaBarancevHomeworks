@@ -1,4 +1,5 @@
 rootProject.name = 'javafortesters'
 include 'sandbox'
 findProject(':sandbox')?.name = 'javafortesters'
+include 'task2'
 
