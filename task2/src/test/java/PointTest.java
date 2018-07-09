@@ -10,8 +10,14 @@ public class PointTest {
     {
         return new Object[][]{
                 {new Point(1,1),new Point(5,5),5.657},
-                {new Point(-1,-1),new Point(5,5),8.486},
-                {new Point (-10,-10),new Point(-55,-55),63.640}
+                {new Point(5,5),new Point(1,1),5.657},
+
+                {new Point (-10,-10),new Point(55,55),91.924},
+                {new Point (10,10),new Point(-55,-55),91.924},
+
+                {new Point (5,10),new Point(120,0),115.434}
+
+
         };
     }
 

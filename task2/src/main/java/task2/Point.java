@@ -17,8 +17,8 @@ public class Point {
     public double distance(Point p)
     {
         double height=p.y-y;
-        double width=p.x-y;
-        double temp = Math.sqrt(height*height+width*width);
+        double width=p.x-x;
+        double temp = Math.sqrt(Math.abs(height*height+width*width));
         return new BigDecimal(temp).setScale(3, RoundingMode.UP).doubleValue();
     }
 }
