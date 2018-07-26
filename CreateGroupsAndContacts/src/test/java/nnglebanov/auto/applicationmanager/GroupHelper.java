@@ -1,9 +1,11 @@
 package nnglebanov.auto.applicationmanager;
 
 import nnglebanov.auto.model.GroupModel;
+import nnglebanov.auto.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -36,7 +38,6 @@ public class GroupHelper extends HelperBase {
             element.click();
         }
     }
-
     public void selectAllGroups() {
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group input"));
         for (WebElement element : elements) {
@@ -50,9 +51,16 @@ public class GroupHelper extends HelperBase {
     }
 
     public void editAloneGroup(GroupModel gm) {
+        selectAllGroups();
         click(By.cssSelector("input:nth-child(3)"));
         fillGroup(gm);
         acceptRefreshingData();
+    }
+
+    public boolean isGroupExists(){
+        if(driver.findElements(By.cssSelector("span.group")).size()>0) {
+            return true;
+        }else {return false;}
     }
 
 

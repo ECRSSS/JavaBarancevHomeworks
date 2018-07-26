@@ -6,19 +6,27 @@ import org.testng.annotations.Test;
 
 public class GroupTests extends TestBase {
     @Test
-    public void aCreateGroupTest(){
+    public void createGroupTest(){
         app.getNavigationHelper().moveToGroups();
         GroupHelper gh=app.getGroupHelper();
         gh.addNewGroup(new GroupModel());
     }
     @Test
-    public void aEditGroupTest(){
+    public void editGroupTest(){
         app.getNavigationHelper().moveToGroups();
-        app.getGroupHelper().editAloneGroup(new GroupModel("T2","T3","T4"));
+        GroupHelper groupHelper=app.getGroupHelper();
+        if(groupHelper.isGroupExists()==false){
+            groupHelper.addNewGroup(new GroupModel());
+        }
+        groupHelper.editAloneGroup(new GroupModel("T2","T3","T4"));
     }
     @Test
-    public void bDeleteGroupTest(){
+    public void deleteGroupTest(){
         app.getNavigationHelper().moveToGroups();
-        app.getGroupHelper().deleteAllGroups();
+        GroupHelper groupHelper=app.getGroupHelper();
+        if(groupHelper.isGroupExists()==false){
+            groupHelper.addNewGroup(new GroupModel());
+        }
+        groupHelper.deleteAllGroups();
     }
 }

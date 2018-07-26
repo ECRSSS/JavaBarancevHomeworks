@@ -87,4 +87,10 @@ public class ContactHelper extends HelperBase {
         updateContact();
     }
 
+    public boolean isContactExists(){
+        if(driver.findElements(By.cssSelector("tr[name='entry']")).size()>0) {
+            return true;
+        }else {return false;}
+    }
+
 }
