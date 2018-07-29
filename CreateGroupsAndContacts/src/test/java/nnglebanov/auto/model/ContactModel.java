@@ -4,6 +4,15 @@ import java.time.LocalDate;
 import java.time.Month;
 
 public class ContactModel {
+
+    public ContactModel(){}
+
+    public ContactModel(String firstName,String lastName,String address){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.address=address;
+    }
+
     private String firstName = "TestFirstName";
     private String middleName = "TestMiddleName";
     private String lastName = "TestLastName";

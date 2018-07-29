@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GroupHelper extends HelperBase {
@@ -61,6 +63,17 @@ public class GroupHelper extends HelperBase {
         if(driver.findElements(By.cssSelector("span.group")).size()>0) {
             return true;
         }else {return false;}
+    }
+
+    public List<GroupModel> getListOfContacts(){
+        List<WebElement> contactElements=driver.findElements(By.cssSelector("span.group"));
+        List<GroupModel> groups=new ArrayList<>();
+        for(WebElement element : contactElements){
+            String groupName=element.getText();
+            groups.add(new GroupModel(groupName));
+        }
+        Collections.sort(groups,((o1, o2) -> o1.getGroupName().compareTo(o2.getGroupName())));
+        return groups;
     }
 
 

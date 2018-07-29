@@ -14,6 +14,10 @@ public class GroupModel {
     public GroupModel() {
     }
 
+    public GroupModel(String name){
+        groupName=name;
+    }
+
     public String getGroupName() {
         return groupName;
     }

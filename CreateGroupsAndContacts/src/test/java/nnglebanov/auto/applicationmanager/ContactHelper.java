@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ContactHelper extends HelperBase {
@@ -91,6 +93,19 @@ public class ContactHelper extends HelperBase {
         if(driver.findElements(By.cssSelector("tr[name='entry']")).size()>0) {
             return true;
         }else {return false;}
+    }
+
+    public List<ContactModel> getListOfContacts(){
+        List<WebElement> contactElements=driver.findElements(By.cssSelector("tr[name='entry']"));
+        List<ContactModel> contacts=new ArrayList<>();
+        for(WebElement element : contactElements){
+            String lastName=element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            String firstName=element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            String address=element.findElement(By.cssSelector("td:nth-child(4)")).getText();
+            contacts.add(new ContactModel(firstName,lastName,address));
+        }
+        Collections.sort(contacts,((o1, o2) -> o1.getLastName().compareTo(o2.getLastName())));
+        return contacts;
     }
 
 }
