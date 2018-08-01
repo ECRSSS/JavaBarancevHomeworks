@@ -5,14 +5,17 @@ import nnglebanov.auto.model.ContactModel;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class ContactTests extends TestBase {
     @Test
     public void aCreateContactTest(){
-        int sizeOfListBefore=app.getContactHelper().getListOfContacts().size();
+        List<ContactModel> listBefore=app.getContactHelper().getListOfContacts();
         app.getNavigationHelper().moveToAddNew();
         app.getContactHelper().addContact(new ContactModel());
-        int sizeOfListAfter=app.getContactHelper().getListOfContacts().size();
-        Assert.assertEquals(sizeOfListAfter,sizeOfListBefore+1);
+        List<ContactModel> listAfter=app.getContactHelper().getListOfContacts();
+        Assert.assertEquals(listAfter.size(),listBefore.size()+1);
+        Assert.assertNotEquals(listAfter,listBefore);
     }
     @Test
     public void aEditContactTest(){
@@ -22,10 +25,10 @@ public class ContactTests extends TestBase {
             app.getNavigationHelper().moveToAddNew();
             contactHelper.addContact(new ContactModel());
         }
-        int sizeOfListBefore=app.getContactHelper().getListOfContacts().size();
+        List<ContactModel> listBefore=app.getContactHelper().getListOfContacts();
         contactHelper.editContact(0,new ContactModel());
-        int sizeOfListAfter=app.getContactHelper().getListOfContacts().size();
-        Assert.assertEquals(sizeOfListAfter,sizeOfListBefore);
+        List<ContactModel> listAfter=app.getContactHelper().getListOfContacts();
+        Assert.assertEquals(listAfter,listBefore);
     }
     @Test
     public void bDeleteContactTest(){

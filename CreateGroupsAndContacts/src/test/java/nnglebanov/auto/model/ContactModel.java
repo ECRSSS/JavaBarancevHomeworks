@@ -2,6 +2,7 @@ package nnglebanov.auto.model;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Objects;
 
 public class ContactModel {
 
@@ -11,6 +12,41 @@ public class ContactModel {
         this.firstName=firstName;
         this.lastName=lastName;
         this.address=address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContactModel that = (ContactModel) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(middleName, that.middleName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(nickName, that.nickName) &&
+                Objects.equals(photoPath, that.photoPath) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(company, that.company) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(homePhone, that.homePhone) &&
+                Objects.equals(mobilePhone, that.mobilePhone) &&
+                Objects.equals(workPhone, that.workPhone) &&
+                Objects.equals(fax, that.fax) &&
+                Objects.equals(email1, that.email1) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3) &&
+                Objects.equals(homepage, that.homepage) &&
+                Objects.equals(birthday, that.birthday) &&
+                Objects.equals(anniversary, that.anniversary) &&
+                Objects.equals(group, that.group) &&
+                Objects.equals(secondaryAddress, that.secondaryAddress) &&
+                Objects.equals(home, that.home) &&
+                Objects.equals(notes, that.notes);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(firstName, middleName, lastName, nickName, photoPath, title, company, address, homePhone, mobilePhone, workPhone, fax, email1, email2, email3, homepage, birthday, anniversary, group, secondaryAddress, home, notes);
     }
 
     private String firstName = "TestFirstName";

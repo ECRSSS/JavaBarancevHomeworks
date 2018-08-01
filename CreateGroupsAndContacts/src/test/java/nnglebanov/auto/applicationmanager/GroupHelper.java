@@ -65,7 +65,7 @@ public class GroupHelper extends HelperBase {
         }else {return false;}
     }
 
-    public List<GroupModel> getListOfContacts(){
+    public List<GroupModel> getListOfGroups(){
         List<WebElement> contactElements=driver.findElements(By.cssSelector("span.group"));
         List<GroupModel> groups=new ArrayList<>();
         for(WebElement element : contactElements){

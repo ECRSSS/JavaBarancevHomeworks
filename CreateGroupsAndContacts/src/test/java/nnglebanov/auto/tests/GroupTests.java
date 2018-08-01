@@ -11,11 +11,12 @@ public class GroupTests extends TestBase {
     @Test
     public void createGroupTest(){
         app.getNavigationHelper().moveToGroups();
-        int groupsBefore=app.getGroupHelper().getListOfContacts().size();
+        List<GroupModel> groupsBefore=app.getGroupHelper().getListOfGroups();
         GroupHelper gh=app.getGroupHelper();
         gh.addNewGroup(new GroupModel());
-        int groupsAfter=app.getGroupHelper().getListOfContacts().size();
-        Assert.assertEquals(groupsAfter,groupsBefore+1);
+        List<GroupModel> groupsAfter=app.getGroupHelper().getListOfGroups();
+        Assert.assertEquals(groupsAfter.size(),groupsBefore.size()+1);
+        Assert.assertNotEquals(groupsBefore,groupsAfter);
 
     }
     @Test
@@ -25,10 +26,11 @@ public class GroupTests extends TestBase {
         if(groupHelper.isGroupExists()==false){
             groupHelper.addNewGroup(new GroupModel());
         }
-        int groupsBefore=app.getGroupHelper().getListOfContacts().size();
-        groupHelper.editAloneGroup(new GroupModel("T2","T3","T4"));
-        int groupsAfter=app.getGroupHelper().getListOfContacts().size();
-        Assert.assertEquals(groupsAfter,groupsBefore);
+        List<GroupModel> groupsBefore=app.getGroupHelper().getListOfGroups();
+        groupHelper.editAloneGroup(new GroupModel());
+        List<GroupModel> groupsAfter=app.getGroupHelper().getListOfGroups();
+        Assert.assertEquals(groupsAfter.size(),groupsBefore.size());
+        Assert.assertEquals(groupsBefore,groupsAfter);
 
     }
     @Test
@@ -39,7 +41,7 @@ public class GroupTests extends TestBase {
             groupHelper.addNewGroup(new GroupModel());
         }
         groupHelper.deleteAllGroups();
-        int groupsAfter=app.getGroupHelper().getListOfContacts().size();
+        int groupsAfter=app.getGroupHelper().getListOfGroups().size();
         Assert.assertEquals(groupsAfter,0);
     }
 }
