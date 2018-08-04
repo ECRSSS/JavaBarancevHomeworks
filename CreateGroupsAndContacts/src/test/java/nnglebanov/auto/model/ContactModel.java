@@ -44,6 +44,34 @@ public class ContactModel {
     }
 
     @Override
+    public String toString() {
+        return "ContactModel{" +
+                "firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", photoPath='" + photoPath + '\'' +
+                ", title='" + title + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", fax='" + fax + '\'' +
+                ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", birthday=" + birthday +
+                ", anniversary=" + anniversary +
+                ", group='" + group + '\'' +
+                ", secondaryAddress='" + secondaryAddress + '\'' +
+                ", home='" + home + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
 
         return Objects.hash(firstName, middleName, lastName, nickName, photoPath, title, company, address, homePhone, mobilePhone, workPhone, fax, email1, email2, email3, homepage, birthday, anniversary, group, secondaryAddress, home, notes);

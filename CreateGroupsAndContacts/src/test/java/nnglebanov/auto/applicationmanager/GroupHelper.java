@@ -1,11 +1,9 @@
 package nnglebanov.auto.applicationmanager;
 
 import nnglebanov.auto.model.GroupModel;
-import nnglebanov.auto.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,8 +15,11 @@ public class GroupHelper extends HelperBase {
     }
 
     private void fillGroup(GroupModel gm) {
+        if(gm.getGroupName()!=null)
         type(By.cssSelector("input[name='group_name']"), gm.getGroupName());
+        if(gm.getGroupHeader()!=null)
         type(By.cssSelector("textarea[name='group_header']"), gm.getGroupHeader());
+        if(gm.getGroupFooter()!=null)
         type(By.cssSelector("textarea[name='group_footer']"), gm.getGroupFooter());
     }
 
@@ -70,9 +71,10 @@ public class GroupHelper extends HelperBase {
         List<GroupModel> groups=new ArrayList<>();
         for(WebElement element : contactElements){
             String groupName=element.getText();
-            groups.add(new GroupModel(groupName));
+            int id=Integer.parseInt(element.findElement(By.cssSelector("input")).getAttribute("value"));
+            groups.add(new GroupModel(groupName,id));
         }
-        Collections.sort(groups,((o1, o2) -> o1.getGroupName().compareTo(o2.getGroupName())));
+        Collections.sort(groups,((o1, o2) -> Integer.compare(o1.getId(),o2.getId())));
         return groups;
     }
 

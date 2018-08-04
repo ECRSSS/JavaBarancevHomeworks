@@ -3,14 +3,36 @@ package nnglebanov.auto.model;
 import java.util.Objects;
 
 public class GroupModel {
-    private String groupName = "TestName";
-    private String groupHeader = "TestHeader";
-    private String groupFooter = "TestFooter";
+    private String groupName;
+    private String groupHeader;
+    private String groupFooter;
+
+    @Override
+    public String toString() {
+        return "GroupModel{" +
+                "groupName='" + groupName + '\'' +
+                ", groupHeader='" + groupHeader + '\'' +
+                ", groupFooter='" + groupFooter + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    private int id;
 
     public GroupModel(String name, String logo, String comment) {
         groupName = name;
         groupHeader = logo;
         groupFooter = comment;
+    }
+    public GroupModel(String name, String logo, String comment,int groupId) {
+        groupName = name;
+        groupHeader = logo;
+        groupFooter = comment;
+        id=groupId;
     }
 
     @Override
@@ -18,9 +40,7 @@ public class GroupModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupModel that = (GroupModel) o;
-        return Objects.equals(groupName, that.groupName) &&
-                Objects.equals(groupHeader, that.groupHeader) &&
-                Objects.equals(groupFooter, that.groupFooter);
+        return Objects.equals(groupName, that.groupName);
     }
 
     @Override
@@ -30,11 +50,14 @@ public class GroupModel {
     }
 
     public GroupModel() {
-
+        groupName="TestName";
+        groupFooter="TestFooter";
+        groupHeader="TestHeader";
     }
 
-    public GroupModel(String name){
+    public GroupModel(String name,int groupId){
         groupName=name;
+        id=groupId;
     }
 
     public String getGroupName() {
