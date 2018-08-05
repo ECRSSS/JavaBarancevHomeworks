@@ -1,12 +1,11 @@
 package nnglebanov.auto.applicationmanager;
 
 import nnglebanov.auto.model.GroupModel;
+import nnglebanov.auto.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class GroupHelper extends HelperBase {
@@ -66,15 +65,14 @@ public class GroupHelper extends HelperBase {
         }else {return false;}
     }
 
-    public List<GroupModel> getListOfGroups(){
+    public Groups all(){
         List<WebElement> contactElements=driver.findElements(By.cssSelector("span.group"));
-        List<GroupModel> groups=new ArrayList<>();
+        Groups groups=new Groups();
         for(WebElement element : contactElements){
             String groupName=element.getText();
             int id=Integer.parseInt(element.findElement(By.cssSelector("input")).getAttribute("value"));
             groups.add(new GroupModel(groupName,id));
         }
-        Collections.sort(groups,((o1, o2) -> Integer.compare(o1.getId(),o2.getId())));
         return groups;
     }
 

@@ -21,7 +21,7 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private SessionHelper sessionHelper;
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper contact() {
         return contactHelper;
     }
 
@@ -48,15 +48,15 @@ public class ApplicationManager {
         driver.quit();
     }
 
-    public GroupHelper getGroupHelper() {
+    public GroupHelper group() {
         return groupHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper nav() {
         return navigationHelper;
     }
 
-    public SessionHelper getSessionHelper() {
+    public SessionHelper session() {
         return sessionHelper;
     }
 }

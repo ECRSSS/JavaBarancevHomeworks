@@ -6,6 +6,24 @@ public class GroupModel {
     private String groupName;
     private String groupHeader;
     private String groupFooter;
+    private int id;
+
+    public GroupModel withName(String name){
+        this.groupName=name;
+        return this;
+    }
+    public GroupModel withHeader(String header){
+        this.groupHeader=header;
+        return this;
+    }
+    public GroupModel withFooter(String footer){
+        this.groupFooter=footer;
+        return this;
+    }
+    public GroupModel withId(int id){
+        this.id=id;
+        return this;
+    }
 
     @Override
     public String toString() {
@@ -21,18 +39,18 @@ public class GroupModel {
         return id;
     }
 
-    private int id;
 
     public GroupModel(String name, String logo, String comment) {
         groupName = name;
         groupHeader = logo;
         groupFooter = comment;
     }
-    public GroupModel(String name, String logo, String comment,int groupId) {
+
+    public GroupModel(String name, String logo, String comment, int groupId) {
         groupName = name;
         groupHeader = logo;
         groupFooter = comment;
-        id=groupId;
+        id = groupId;
     }
 
     @Override
@@ -40,24 +58,23 @@ public class GroupModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupModel that = (GroupModel) o;
-        return Objects.equals(groupName, that.groupName);
+        return id == that.id &&
+                Objects.equals(groupName, that.groupName);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(groupName, groupHeader, groupFooter);
+        return Objects.hash(groupName, id);
     }
 
     public GroupModel() {
-        groupName="TestName";
-        groupFooter="TestFooter";
-        groupHeader="TestHeader";
+        groupName = "TestName";
     }
 
-    public GroupModel(String name,int groupId){
-        groupName=name;
-        id=groupId;
+    public GroupModel(String name, int groupId) {
+        groupName = name;
+        id = groupId;
     }
 
     public String getGroupName() {

@@ -1,6 +1,7 @@
 package nnglebanov.auto.applicationmanager;
 
 import nnglebanov.auto.model.ContactModel;
+import nnglebanov.auto.model.Contacts;
 import nnglebanov.auto.utils.OtherUtils;
 import nnglebanov.auto.utils.WaitUtils;
 import org.openqa.selenium.By;
@@ -78,7 +79,7 @@ public class ContactHelper extends HelperBase {
         submitContact();
     }
 
-    public void deleteAllContacts() {
+    public void deleteAll() {
         clickToSelectAllCheckbox();
         clickOnDelete();
     }
@@ -95,16 +96,16 @@ public class ContactHelper extends HelperBase {
         }else {return false;}
     }
 
-    public List<ContactModel> getListOfContacts(){
+    public Contacts all(){
         List<WebElement> contactElements=driver.findElements(By.cssSelector("tr[name='entry']"));
-        List<ContactModel> contacts=new ArrayList<>();
+        Contacts contacts=new Contacts();
         for(WebElement element : contactElements){
             String lastName=element.findElement(By.cssSelector("td:nth-child(2)")).getText();
             String firstName=element.findElement(By.cssSelector("td:nth-child(3)")).getText();
             String address=element.findElement(By.cssSelector("td:nth-child(4)")).getText();
-            contacts.add(new ContactModel(firstName,lastName,address));
+            int id=Integer.parseInt(element.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("value"));
+            contacts.add(new ContactModel(firstName,lastName,address).withId(id));
         }
-        Collections.sort(contacts,((o1, o2) -> o1.getLastName().compareTo(o2.getLastName())));
         return contacts;
     }
 
