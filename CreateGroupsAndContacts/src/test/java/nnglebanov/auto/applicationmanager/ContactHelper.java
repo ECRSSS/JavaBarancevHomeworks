@@ -37,18 +37,19 @@ public class ContactHelper extends HelperBase {
         type(By.name("email3"), cm.getEmail3());
         type(By.name("homepage"), cm.getHomepage());
         //birthday
-        selectByValue(By.name("bday"), Integer.toString(cm.getBirthday().getDayOfMonth()));
-        selectByValue(By.name("bmonth"), OtherUtils.monthToValue(cm.getBirthday().getMonth().toString()));
-        type(By.name("byear"), Integer.toString(cm.getBirthday().getYear()));
+        //selectByValue(By.name("bday"), Integer.toString(cm.getBirthday().getDayOfMonth()));
+        //selectByValue(By.name("bmonth"), OtherUtils.monthToValue(cm.getBirthday().getMonth().toString()));
+        //type(By.name("byear"), Integer.toString(cm.getBirthday().getYear()));
         // anniversary
-        selectByValue(By.name("aday"), Integer.toString(cm.getAnniversary().getDayOfMonth()));
-        selectByText(By.name("amonth"), OtherUtils.monthToValue(cm.getAnniversary().getMonth().toString()));
-        type(By.name("ayear"), Integer.toString(cm.getAnniversary().getYear()));
+        //selectByValue(By.name("aday"), Integer.toString(cm.getAnniversary().getDayOfMonth()));
+        //selectByText(By.name("amonth"), OtherUtils.monthToValue(cm.getAnniversary().getMonth().toString()));
+        //type(By.name("ayear"), Integer.toString(cm.getAnniversary().getYear()));
 
         type(By.name("address2"), cm.getSecondaryAddress());
         type(By.name("phone2"), cm.getHome());
         type(By.name("notes"), cm.getNotes());
     }
+
 
     private void submitContact() {
         click(By.name("submit"));
@@ -69,6 +70,8 @@ public class ContactHelper extends HelperBase {
         click(By.id("MassCB"));
     }
 
+    private void clickToSelectByIndex(int index) {click(By.cssSelector("tr[name='entry']:nth-child("+(index+1)+") input[name='selected[]']"));}
+
     private void clickOnEditLinkByIndex(int index) {
         List<WebElement> elements = driver.findElements(By.xpath("//img[@title='Edit']//.."));
         elements.get(index).click();
@@ -77,6 +80,11 @@ public class ContactHelper extends HelperBase {
     public void addContact(ContactModel contactModel) {
         fillContact(contactModel);
         submitContact();
+    }
+
+    public void deleteByIndex(int index) {
+        clickToSelectByIndex(index);
+        clickOnDelete();
     }
 
     public void deleteAll() {
@@ -103,8 +111,13 @@ public class ContactHelper extends HelperBase {
             String lastName=element.findElement(By.cssSelector("td:nth-child(2)")).getText();
             String firstName=element.findElement(By.cssSelector("td:nth-child(3)")).getText();
             String address=element.findElement(By.cssSelector("td:nth-child(4)")).getText();
+            String email1=element.findElement(By.cssSelector("td:nth-child(5)")).getText();
+            String phone=element.findElement(By.cssSelector("td:nth-child(6)")).getText();
             int id=Integer.parseInt(element.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("value"));
-            contacts.add(new ContactModel(firstName,lastName,address).withId(id));
+            contacts.add(new ContactModel(firstName,lastName,address)
+                    .withId(id)
+                    .withFirstEmail(email1)
+                    .withMobilePhoneNumber(phone));
         }
         return contacts;
     }

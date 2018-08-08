@@ -12,6 +12,11 @@ public class ContactModel {
     }
 
     public ContactModel() {
+        firstName="";
+        lastName="";
+        address="";
+        mobilePhone="";
+        email1="";
     }
 
     public ContactModel(String firstName, String lastName, String address) {
@@ -30,28 +35,10 @@ public class ContactModel {
         return "ContactModel{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
-                ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", photoPath='" + photoPath + '\'' +
-                ", title='" + title + '\'' +
-                ", company='" + company + '\'' +
                 ", address='" + address + '\'' +
-                ", homePhone='" + homePhone + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
-                ", workPhone='" + workPhone + '\'' +
-                ", fax='" + fax + '\'' +
-                ", email1='" + email1 + '\'' +
-                ", email2='" + email2 + '\'' +
-                ", email3='" + email3 + '\'' +
-                ", homepage='" + homepage + '\'' +
-                ", birthday=" + birthday +
-                ", anniversary=" + anniversary +
-                ", group='" + group + '\'' +
-                ", secondaryAddress='" + secondaryAddress + '\'' +
-                ", home='" + home + '\'' +
-                ", notes='" + notes + '\'' +
-                '}';
+                ", email1='" + email1 + '\'';
     }
 
     @Override
@@ -61,27 +48,10 @@ public class ContactModel {
         ContactModel that = (ContactModel) o;
         return id == that.id &&
                 Objects.equals(firstName, that.firstName) &&
-                Objects.equals(middleName, that.middleName) &&
                 Objects.equals(lastName, that.lastName) &&
-                Objects.equals(nickName, that.nickName) &&
-                Objects.equals(photoPath, that.photoPath) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(company, that.company) &&
                 Objects.equals(address, that.address) &&
-                Objects.equals(homePhone, that.homePhone) &&
                 Objects.equals(mobilePhone, that.mobilePhone) &&
-                Objects.equals(workPhone, that.workPhone) &&
-                Objects.equals(fax, that.fax) &&
-                Objects.equals(email1, that.email1) &&
-                Objects.equals(email2, that.email2) &&
-                Objects.equals(email3, that.email3) &&
-                Objects.equals(homepage, that.homepage) &&
-                Objects.equals(birthday, that.birthday) &&
-                Objects.equals(anniversary, that.anniversary) &&
-                Objects.equals(group, that.group) &&
-                Objects.equals(secondaryAddress, that.secondaryAddress) &&
-                Objects.equals(home, that.home) &&
-                Objects.equals(notes, that.notes);
+                Objects.equals(email1, that.email1);
     }
 
     @Override
@@ -91,31 +61,56 @@ public class ContactModel {
     }
 
     private int id;
-    private String firstName = "TestFirstName";
-    private String middleName = "TestMiddleName";
-    private String lastName = "TestLastName";
-    private String nickName = "TestNickName";
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String nickName;
     private String photoPath;
-    private String title = "TestTitle";
-    private String company = "TestCompany";
-    private String address = "TestAddress";
+    private String title;
+    private String company;
+    private String address;
 
-    private String homePhone = "89990000000";
-    private String mobilePhone = "89990000000";
-    private String workPhone = "89990000000";
-    private String fax = "89990000000";
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+    private String fax;
 
-    private String email1 = "Testmail1@mail.ru";
-    private String email2 = "Testmail2@mail.ru";
-    private String email3 = "Testmail3@mail.ru";
-    private String homepage = "www.test-homepage.ru";
-    private LocalDate birthday = LocalDate.of(1996, Month.FEBRUARY, 15);
-    private LocalDate anniversary = LocalDate.of(1996, Month.FEBRUARY, 15);
-    private String group = "1";
+    private String email1;
+    private String email2;
+    private String email3;
+    private String homepage;
+    private LocalDate birthday;
+    private LocalDate anniversary;
+    private String group;
 
-    private String secondaryAddress = "TestAddress";
-    private String home = "TestHome";
-    private String notes = "TestNotes";
+    private String secondaryAddress;
+    private String home;
+    private String notes;
+
+    public ContactModel withLastName(String lastName){
+        this.lastName=lastName;
+        return this;
+    }
+
+    public ContactModel withFirstName(String firstName){
+        this.firstName=firstName;
+        return this;
+    }
+
+    public ContactModel withAddress(String address) {
+        this.address=address;
+        return this;
+    }
+
+    public ContactModel withFirstEmail(String email1){
+        this.email1=email1;
+        return this;
+    }
+
+    public ContactModel withMobilePhoneNumber(String number){
+        this.mobilePhone=number;
+        return this;
+    }
 
     public String getFirstName() {
         return firstName;

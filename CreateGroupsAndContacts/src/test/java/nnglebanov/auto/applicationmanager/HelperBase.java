@@ -16,7 +16,9 @@ public class HelperBase {
     protected void type(By locator,String text){
         WebElement element=driver.findElement(locator);
         element.clear();
-        element.sendKeys(text);
+        if(text!=null){
+            element.sendKeys(text);
+        }
     }
     protected void selectByValue(By locator,String value){
         new Select(driver.findElement(locator)).selectByValue(value);

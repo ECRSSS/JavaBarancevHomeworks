@@ -27,6 +27,10 @@ public class GroupHelper extends HelperBase {
         click(By.cssSelector("div.msgbox a"));
     }
 
+    private void acceptAfterDelete(){
+        click(By.cssSelector("div.msgbox a"));
+    }
+
     public void addNewGroup(GroupModel gm) {
         click(By.cssSelector("input[value='New group']:first-child"));
         fillGroup(gm);
@@ -47,9 +51,19 @@ public class GroupHelper extends HelperBase {
         }
     }
 
+    private void selectGroupByIndex(int index){
+        click(By.cssSelector("span.group:nth-child("+(index+4)+") > input[type='checkbox']"));
+    }
+
     public void deleteAllGroups() {
         selectAllGroups();
         click(By.cssSelector("input:nth-child(2)"));
+        acceptAfterDelete();
+    }
+    public void deleteGroupByIndex(int index){
+        selectGroupByIndex(1);
+        click(By.cssSelector("input:nth-child(2)"));
+        acceptAfterDelete();
     }
 
     public void editAloneGroup(GroupModel gm) {
@@ -71,7 +85,7 @@ public class GroupHelper extends HelperBase {
         for(WebElement element : contactElements){
             String groupName=element.getText();
             int id=Integer.parseInt(element.findElement(By.cssSelector("input")).getAttribute("value"));
-            groups.add(new GroupModel(groupName,id));
+            groups=groups.withAdded(new GroupModel(groupName,id));
         }
         return groups;
     }

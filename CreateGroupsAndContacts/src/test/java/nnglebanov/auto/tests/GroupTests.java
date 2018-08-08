@@ -48,8 +48,15 @@ public class GroupTests extends TestBase {
     }
 
     @Test
-    public void deleteGroupTest() {
+    public void deleteGroupsTest() {
         app.group().deleteAllGroups();
         assertThat(0,equalTo(app.group().all().size()));
+    }
+
+    @Test
+    public void deleteGroupTest(){
+        int sizeBefore=app.group().all().size();
+        app.group().deleteGroupByIndex(1);
+        assertThat(sizeBefore-1,equalTo(app.group().all().size()));
     }
 }

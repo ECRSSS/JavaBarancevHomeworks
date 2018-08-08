@@ -25,7 +25,8 @@ public class ContactTests extends TestBase {
         ContactHelper contactHelper=app.contact();
         if(contactHelper.isContactExists()==false) {
             app.nav().moveToAddNew();
-            contactHelper.addContact(new ContactModel());
+            contactHelper.addContact(new ContactModel().withFirstName("Name").withAddress("Address")
+                    .withFirstEmail("Email").withMobilePhoneNumber("89999"));
         }
 
     }
@@ -33,7 +34,13 @@ public class ContactTests extends TestBase {
     public void aCreateContactTest(){
         Contacts listBefore=app.contact().all();
         app.nav().moveToAddNew();
-        ContactModel newContact=new ContactModel().withId(listBefore.stream().mapToInt((g) -> g.getId()).max().getAsInt()+1);
+        ContactModel newContact=new ContactModel()
+                .withFirstName("TestName")
+                .withLastName("TestLastName")
+                .withAddress("TestAdress")
+                .withFirstEmail("TestMail")
+                .withMobilePhoneNumber("899900000")
+                .withId(listBefore.stream().mapToInt((g) -> g.getId()).max().getAsInt()+1);
         app.contact().addContact(newContact);
         Contacts listAfter=app.contact().all();
         assertThat(listAfter.size(),equalTo(listBefore.size()+1));
@@ -48,9 +55,15 @@ public class ContactTests extends TestBase {
         assertThat(listAfter,equalTo(listBefore.without(listBefore.iterator().next()).withAdded(newContact)));
     }
     @Test
-    public void bDeleteContactTest(){
+    public void bDeleteContactsTest(){
         app.contact().deleteAll();
         int sizeOfListAfter=app.contact().all().size();
         assertThat(0,equalTo(sizeOfListAfter));
+    }
+    @Test
+    public void cDeleteContactTest(){
+        int sizeBefore=app.contact().all().size();
+        app.contact().deleteByIndex(1);
+        assertThat(sizeBefore-1,equalTo(app.contact().all().size()));
     }
 }
