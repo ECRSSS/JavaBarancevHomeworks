@@ -15,8 +15,6 @@ public class ContactModel {
         firstName="";
         lastName="";
         address="";
-        mobilePhone="";
-        email1="";
     }
 
     public ContactModel(String firstName, String lastName, String address) {
@@ -38,7 +36,12 @@ public class ContactModel {
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
-                ", email1='" + email1 + '\'';
+                ", homePhone='" + homePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", email1='" + email1 + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' + "}"
+                ;
     }
 
     @Override
@@ -49,9 +52,7 @@ public class ContactModel {
         return id == that.id &&
                 Objects.equals(firstName, that.firstName) &&
                 Objects.equals(lastName, that.lastName) &&
-                Objects.equals(address, that.address) &&
-                Objects.equals(mobilePhone, that.mobilePhone) &&
-                Objects.equals(email1, that.email1);
+                Objects.equals(address, that.address);
     }
 
     @Override
@@ -87,6 +88,27 @@ public class ContactModel {
     private String home;
     private String notes;
 
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    private String allPhones;
+    private String allEmails;
+
+    public ContactModel withUncheckedAllPhones(String allPhones){
+        this.allPhones=allPhones;
+        return this;
+    }
+
+    public ContactModel withUncheckedAllEmails(String allEmails){
+        this.allEmails=allEmails;
+        return this;
+    }
+
     public ContactModel withLastName(String lastName){
         this.lastName=lastName;
         return this;
@@ -107,10 +129,32 @@ public class ContactModel {
         return this;
     }
 
+
+    public ContactModel withSecondEmail(String number){
+        this.email2=number;
+        return this;
+    }
+
+    public ContactModel withThirdEmail(String number){
+        this.email3=number;
+        return this;
+    }
+
     public ContactModel withMobilePhoneNumber(String number){
         this.mobilePhone=number;
         return this;
     }
+
+    public ContactModel withHomePhone(String number){
+        this.homePhone=number;
+        return this;
+    }
+
+    public ContactModel withWorkPhone(String number){
+        this.workPhone=number;
+        return this;
+    }
+
 
     public String getFirstName() {
         return firstName;

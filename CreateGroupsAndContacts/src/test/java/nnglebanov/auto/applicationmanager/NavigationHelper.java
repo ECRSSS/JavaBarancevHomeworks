@@ -5,7 +5,9 @@ import org.openqa.selenium.WebDriver;
 
 public class NavigationHelper extends HelperBase {
 
-    protected NavigationHelper(WebDriver driver) { super(driver); }
+    protected NavigationHelper(WebDriver driver) {
+        super(driver);
+    }
 
 
     public void moveToGroups() {
@@ -14,5 +16,9 @@ public class NavigationHelper extends HelperBase {
 
     public void moveToAddNew() {
         click(By.cssSelector("div#nav>ul>li:nth-child(2)"));
+    }
+
+    public void moveToContacts() {
+        click(By.cssSelector("div#nav>ul>li:first-child"));
     }
 }

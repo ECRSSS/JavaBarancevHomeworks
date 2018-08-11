@@ -20,6 +20,10 @@ public class HelperBase {
             element.sendKeys(text);
         }
     }
+    protected String getValue(By locator){
+        WebElement element=driver.findElement(locator);
+        return element.getAttribute("value");
+    }
     protected void selectByValue(By locator,String value){
         new Select(driver.findElement(locator)).selectByValue(value);
     }

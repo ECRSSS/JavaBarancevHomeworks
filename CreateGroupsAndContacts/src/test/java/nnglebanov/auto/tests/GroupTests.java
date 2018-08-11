@@ -3,7 +3,6 @@ package nnglebanov.auto.tests;
 import nnglebanov.auto.applicationmanager.GroupHelper;
 import nnglebanov.auto.model.GroupModel;
 import nnglebanov.auto.model.Groups;
-import org.hamcrest.MatcherAssert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 

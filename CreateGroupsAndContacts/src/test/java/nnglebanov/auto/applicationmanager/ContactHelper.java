@@ -2,19 +2,35 @@ package nnglebanov.auto.applicationmanager;
 
 import nnglebanov.auto.model.ContactModel;
 import nnglebanov.auto.model.Contacts;
-import nnglebanov.auto.utils.OtherUtils;
 import nnglebanov.auto.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ContactHelper extends HelperBase {
     protected ContactHelper(WebDriver driver) {
         super(driver);
+    }
+
+    private ContactModel getContact(){
+        ContactModel cm=new ContactModel();
+        cm.withFirstName(getValue(By.name("firstname")));
+        cm.withLastName(getValue(By.name("lastname")));
+        cm.withFirstEmail(getValue(By.name("email")));
+        cm.withSecondEmail(getValue(By.name("email2")));
+        cm.withThirdEmail(getValue(By.name("email3")));
+        cm.withAddress(getValue(By.name("address")));
+        cm.withHomePhone(getValue(By.name("home")));
+        cm.withMobilePhoneNumber(getValue(By.name("mobile")));
+        cm.withWorkPhone(getValue(By.name("work")));
+
+        cm.withUncheckedAllEmails(cm.getEmail1()+cm.getEmail2()+cm.getEmail3());
+        cm.withUncheckedAllPhones(cm.getHomePhone()+cm.getMobilePhone()+cm.getWorkPhone());
+        return cm;
     }
 
     private void fillContact(ContactModel cm) {
@@ -120,6 +136,33 @@ public class ContactHelper extends HelperBase {
                     .withMobilePhoneNumber(phone));
         }
         return contacts;
+    }
+
+    public ContactModel getContactByIndex(int index){
+        WebElement element=driver.findElement(By.xpath("//tr[@name='entry']["+index+"]"));
+        element.findElement(By.xpath("//td[8]//a")).click();
+        return getContact();
+    }
+
+    public ContactModel parseContact(int index){
+
+        WebElement element=driver.findElement(By.xpath("//tr[@name='entry']["+index+"]"));
+        String lastName=element.findElement(By.xpath("//td[2]")).getText();
+        String firstName=element.findElement(By.xpath("//td[3]")).getText();
+        String address=element.findElement(By.xpath("//td[4]")).getText();
+        List<WebElement> emails=element.findElements(By.xpath("//td[5]//a"));
+        String phones=element.findElement(By.xpath("//td[6]")).getText();
+
+        String allPhones= Arrays.stream(phones.split("\n")).collect(Collectors.joining());
+        String allEmails=emails.stream().map(e->e.getText()).collect(Collectors.joining());
+
+        ContactModel cm=new ContactModel();
+        cm.withLastName(lastName);
+        cm.withFirstName(firstName);
+        cm.withAddress(address);
+        cm.withUncheckedAllPhones(allPhones);
+        cm.withUncheckedAllEmails(allEmails);
+        return cm;
     }
 
 }

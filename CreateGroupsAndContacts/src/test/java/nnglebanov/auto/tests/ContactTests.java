@@ -17,7 +17,6 @@ import static org.hamcrest.MatcherAssert.*;
 
 public class ContactTests extends TestBase {
 
-    Comparator<ContactModel> CONTACT_COMPARATOR=(g1,g2)->g1.getFirstName().compareTo(g2.getFirstName());
 
     @BeforeMethod
     public void ensurePreconditions(){
@@ -65,5 +64,16 @@ public class ContactTests extends TestBase {
         int sizeBefore=app.contact().all().size();
         app.contact().deleteByIndex(1);
         assertThat(sizeBefore-1,equalTo(app.contact().all().size()));
+    }
+
+    //Тест задания 11
+    @Test
+    public void dCheckContactData(){
+        ContactModel modelBack=app.contact().getContactByIndex(1);
+        app.nav().moveToContacts();
+        ContactModel modelFront=app.contact().parseContact(1);
+
+        assertThat(modelBack.getAllEmails(),equalTo(modelFront.getAllEmails()));
+        assertThat(modelBack.getAllPhones(),equalTo(modelFront.getAllPhones()));
     }
 }
