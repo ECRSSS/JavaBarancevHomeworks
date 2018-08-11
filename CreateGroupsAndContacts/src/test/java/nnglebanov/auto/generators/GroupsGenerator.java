@@ -4,6 +4,7 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import nnglebanov.auto.model.GroupModel;
 
 import java.io.File;
@@ -40,7 +41,7 @@ public class GroupsGenerator {
     }
 
     private void save(List<GroupModel> groups, File file) throws IOException {
-        Gson gson=new Gson();
+        Gson gson=new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String item=gson.toJson(groups);
         Writer writer=new FileWriter(file);
         writer.write(item);

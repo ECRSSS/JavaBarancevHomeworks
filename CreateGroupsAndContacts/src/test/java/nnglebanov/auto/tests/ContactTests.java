@@ -1,22 +1,51 @@
 package nnglebanov.auto.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import nnglebanov.auto.applicationmanager.ContactHelper;
 import nnglebanov.auto.model.ContactModel;
 import nnglebanov.auto.model.Contacts;
+import nnglebanov.auto.model.GroupModel;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 public class ContactTests extends TestBase {
 
+    @DataProvider
+    public Iterator<Object[]> contactsFromJson() throws IOException {
+        BufferedReader reader=new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
+        String json="";
+        String line=reader.readLine();
+        while (line!=null){
+            json+=line;
+            line=reader.readLine();
+        }
+        Gson gson=new Gson();
+        List<ContactModel> contacts=gson.fromJson(json,new TypeToken<List<ContactModel>>(){}.getType());
+        return contacts.stream().map(g->new Object[]{g}).collect(Collectors.toList()).iterator();
+    }
+
+    @Test(dataProvider = "contactsFromJson")
+    public void aCreateContactsWithProvider(ContactModel contactModel){
+        app.nav().moveToAddNew();
+        app.contact().addContact(contactModel);
+    }
 
     @BeforeMethod
     public void ensurePreconditions(){

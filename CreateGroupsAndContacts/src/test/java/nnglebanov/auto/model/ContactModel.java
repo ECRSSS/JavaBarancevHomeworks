@@ -1,5 +1,7 @@
 package nnglebanov.auto.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Objects;
@@ -12,9 +14,9 @@ public class ContactModel {
     }
 
     public ContactModel() {
-        firstName="";
-        lastName="";
-        address="";
+        firstName = "";
+        lastName = "";
+        address = "";
     }
 
     public ContactModel(String firstName, String lastName, String address) {
@@ -62,20 +64,24 @@ public class ContactModel {
     }
 
     private int id;
+    @Expose
     private String firstName;
     private String middleName;
+    @Expose
     private String lastName;
     private String nickName;
     private String photoPath;
     private String title;
     private String company;
+    @Expose
     private String address;
-
+    @Expose
     private String homePhone;
     private String mobilePhone;
     private String workPhone;
     private String fax;
 
+    @Expose
     private String email1;
     private String email2;
     private String email3;
@@ -99,59 +105,59 @@ public class ContactModel {
     private String allPhones;
     private String allEmails;
 
-    public ContactModel withUncheckedAllPhones(String allPhones){
-        this.allPhones=allPhones;
+    public ContactModel withUncheckedAllPhones(String allPhones) {
+        this.allPhones = allPhones;
         return this;
     }
 
-    public ContactModel withUncheckedAllEmails(String allEmails){
-        this.allEmails=allEmails;
+    public ContactModel withUncheckedAllEmails(String allEmails) {
+        this.allEmails = allEmails;
         return this;
     }
 
-    public ContactModel withLastName(String lastName){
-        this.lastName=lastName;
+    public ContactModel withLastName(String lastName) {
+        this.lastName = lastName;
         return this;
     }
 
-    public ContactModel withFirstName(String firstName){
-        this.firstName=firstName;
+    public ContactModel withFirstName(String firstName) {
+        this.firstName = firstName;
         return this;
     }
 
     public ContactModel withAddress(String address) {
-        this.address=address;
+        this.address = address;
         return this;
     }
 
-    public ContactModel withFirstEmail(String email1){
-        this.email1=email1;
+    public ContactModel withFirstEmail(String email1) {
+        this.email1 = email1;
         return this;
     }
 
 
-    public ContactModel withSecondEmail(String number){
-        this.email2=number;
+    public ContactModel withSecondEmail(String number) {
+        this.email2 = number;
         return this;
     }
 
-    public ContactModel withThirdEmail(String number){
-        this.email3=number;
+    public ContactModel withThirdEmail(String number) {
+        this.email3 = number;
         return this;
     }
 
-    public ContactModel withMobilePhoneNumber(String number){
-        this.mobilePhone=number;
+    public ContactModel withMobilePhoneNumber(String number) {
+        this.mobilePhone = number;
         return this;
     }
 
-    public ContactModel withHomePhone(String number){
-        this.homePhone=number;
+    public ContactModel withHomePhone(String number) {
+        this.homePhone = number;
         return this;
     }
 
-    public ContactModel withWorkPhone(String number){
-        this.workPhone=number;
+    public ContactModel withWorkPhone(String number) {
+        this.workPhone = number;
         return this;
     }
 
