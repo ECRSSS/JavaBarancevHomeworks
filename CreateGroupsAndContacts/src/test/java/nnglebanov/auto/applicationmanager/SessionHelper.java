@@ -9,9 +9,9 @@ public class SessionHelper extends HelperBase {
     protected SessionHelper(WebDriver driver) { super(driver);}
 
 
-    public void login(){
-        type(By.cssSelector("input[name='user']"),"admin");
-        type(By.cssSelector("input[name='pass']"),"secret");
+    public void login(String login,String password){
+        type(By.cssSelector("input[name='user']"),login);
+        type(By.cssSelector("input[name='pass']"),password);
         click(By.cssSelector("input[type='submit']"));
     }
 }
