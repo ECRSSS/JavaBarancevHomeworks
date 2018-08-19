@@ -54,7 +54,7 @@ public class ContactTests extends TestBase {
         if(contactHelper.isContactExists()==false) {
             app.nav().moveToAddNew();
             contactHelper.addContact(new ContactModel().withFirstName("Name").withAddress("Address")
-                    .withFirstEmail("Email").withMobilePhoneNumber("89999"));
+                    .withFirstEmail("Email").withSecondEmail("Email2").withMobilePhoneNumber("89999").withWorkPhone("89777"));
         }
 
     }

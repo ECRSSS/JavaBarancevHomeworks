@@ -28,9 +28,32 @@ public class ContactHelper extends HelperBase {
         cm.withMobilePhoneNumber(getValue(By.name("mobile")));
         cm.withWorkPhone(getValue(By.name("work")));
 
+        String phones=new String();
         cm.withUncheckedAllEmails(cm.getEmail1()+cm.getEmail2()+cm.getEmail3());
-        cm.withUncheckedAllPhones(cm.getHomePhone()+cm.getMobilePhone()+cm.getWorkPhone());
+
+        if(!cm.getHomePhone().equals("")){
+            phones+=phoneFilter(cm.getHomePhone());
+        }
+        if(!cm.getMobilePhone().equals("")){
+            if(!cm.getHomePhone().equals("")) {
+                phones += "\n";
+            }
+            phones+=phoneFilter(cm.getMobilePhone());
+        }
+        if(!cm.getMobilePhone().equals("")) {
+            if(!cm.getMobilePhone().equals("")) {
+                phones += "\n";
+            }
+            phones+=phoneFilter(cm.getWorkPhone());
+        }
+        cm.withUncheckedAllPhones(phones);
         return cm;
+    }
+    private String phoneFilter(String phone){
+        phone.replace("(","");
+        phone.replace(")","");
+        phone.replace("+","");
+        return phone;
     }
 
     private void fillContact(ContactModel cm) {
@@ -156,8 +179,10 @@ public class ContactHelper extends HelperBase {
         List<WebElement> emails=element.findElements(By.xpath("//td[5]//a"));
         String phones=element.findElement(By.xpath("//td[6]")).getText();
 
-        String allPhones= Arrays.stream(phones.split("\n")).collect(Collectors.joining());
+        String allPhones= phones;
         String allEmails=emails.stream().map(e->e.getText()).collect(Collectors.joining());
+        System.out.println(allPhones);
+        System.out.println(allEmails);
 
         ContactModel cm=new ContactModel();
         cm.withLastName(lastName);
