@@ -74,10 +74,17 @@ public class GroupTests extends TestBase {
         assertThat(0, equalTo(app.group().all().size()));
     }
 
+    //Добавлена проверка состояния списка
     @Test
     public void deleteGroupTest() {
         int sizeBefore = app.group().all().size();
-        app.group().deleteGroupByIndex(1);
+        Groups groupsBefore=app.group().all();
+        GroupModel groupToDelete=app.group().getGroupByIndex(0);
+        app.nav().moveToGroups();
+        app.group().deleteGroupByIndex(0);
+        Groups groupsAfter=app.group().all();
+        groupsBefore=groupsBefore.without(groupToDelete);
         assertThat(sizeBefore - 1, equalTo(app.group().all().size()));
+        assertThat(groupsAfter,equalTo(groupsBefore));
     }
 }

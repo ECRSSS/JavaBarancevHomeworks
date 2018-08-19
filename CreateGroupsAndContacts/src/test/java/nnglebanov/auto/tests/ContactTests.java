@@ -88,10 +88,17 @@ public class ContactTests extends TestBase {
         int sizeOfListAfter=app.contact().all().size();
         assertThat(0,equalTo(sizeOfListAfter));
     }
+    //Добавлена проверка состояния списка
     @Test
     public void cDeleteContactTest(){
         int sizeBefore=app.contact().all().size();
-        app.contact().deleteByIndex(1);
+        Contacts contactsBefore = app.contact().all();
+        ContactModel contactToDelete=app.contact().getContactByIndex(1).withId(contactsBefore.iterator().next().getId());
+        app.nav().moveToContacts();
+        app.contact().deleteByIndex(-1);
+        Contacts contactsAfter=app.contact().all();
+        contactsBefore=contactsBefore.without(contactToDelete);
+        assertThat(contactsAfter,equalTo(contactsBefore));
         assertThat(sizeBefore-1,equalTo(app.contact().all().size()));
     }
 

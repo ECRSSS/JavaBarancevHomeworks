@@ -52,7 +52,7 @@ public class GroupHelper extends HelperBase {
     }
 
     private void selectGroupByIndex(int index){
-        click(By.cssSelector("span.group:nth-child("+(index+4)+") > input[type='checkbox']"));
+        click(By.cssSelector("span.group:nth-child("+(index+5)+") > input[type='checkbox']"));
     }
 
     public void deleteAllGroups() {
@@ -61,7 +61,7 @@ public class GroupHelper extends HelperBase {
         acceptAfterDelete();
     }
     public void deleteGroupByIndex(int index){
-        selectGroupByIndex(1);
+        selectGroupByIndex(index);
         click(By.cssSelector("input:nth-child(2)"));
         acceptAfterDelete();
     }
@@ -88,6 +88,19 @@ public class GroupHelper extends HelperBase {
             groups=groups.withAdded(new GroupModel(groupName,id));
         }
         return groups;
+    }
+
+    public GroupModel getGroupByIndex(int index){
+        GroupModel groupModel=new GroupModel();
+        List<WebElement> elements=driver.findElements(By.cssSelector("span.group input"));
+        WebElement element=elements.get(index);
+        groupModel.withId(Integer.parseInt(element.getAttribute("value")));
+        element.click();
+        driver.findElement(By.cssSelector("input:nth-child(3)")).click();
+        groupModel.withName(driver.findElement(By.cssSelector("input[name='group_name']")).getAttribute("value"));
+        groupModel.withHeader(driver.findElement(By.cssSelector("textarea[name='group_header']")).getAttribute("value"));
+        groupModel.withFooter(driver.findElement(By.cssSelector("textarea[name='group_footer']")).getAttribute("value"));
+        return groupModel;
     }
 
 

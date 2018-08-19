@@ -86,7 +86,10 @@ public class ContactHelper extends HelperBase {
         click(By.id("MassCB"));
     }
 
-    private void clickToSelectByIndex(int index) {click(By.cssSelector("tr[name='entry']:nth-child("+(index+1)+") input[name='selected[]']"));}
+    private void clickToSelectByIndex(int index) {
+        List<WebElement> elements=driver.findElements(By.cssSelector("tr[name='entry']"));
+        elements.get(index).findElement(By.cssSelector("input[name='selected[]']")).click();
+    }
 
     private void clickOnEditLinkByIndex(int index) {
         List<WebElement> elements = driver.findElements(By.xpath("//img[@title='Edit']//.."));
