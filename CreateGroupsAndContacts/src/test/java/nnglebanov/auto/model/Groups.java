@@ -2,6 +2,8 @@ package nnglebanov.auto.model;
 
 import com.google.common.collect.ForwardingSet;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +18,8 @@ public class Groups extends ForwardingSet<GroupModel> {
     public Groups(Groups groups){
         this.delegate=new HashSet<GroupModel>(groups.delegate);
     }
+
+    public Groups(Collection<GroupModel> groups){ this.delegate=new HashSet<GroupModel>(groups); }
 
     @Override
     protected Set delegate() {

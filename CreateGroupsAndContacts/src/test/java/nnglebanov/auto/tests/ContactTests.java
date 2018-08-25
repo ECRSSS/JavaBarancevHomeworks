@@ -5,10 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import nnglebanov.auto.applicationmanager.ContactHelper;
 import nnglebanov.auto.model.ContactModel;
 import nnglebanov.auto.model.Contacts;
-import nnglebanov.auto.model.GroupModel;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -17,7 +13,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +46,7 @@ public class ContactTests extends TestBase {
     public void ensurePreconditions(){
 
         ContactHelper contactHelper=app.contact();
-        if(contactHelper.isContactExists()==false) {
+        if(app.db().contacts().size()==0) {
             app.nav().moveToAddNew();
             contactHelper.addContact(new ContactModel().withFirstName("Name").withAddress("Address")
                     .withFirstEmail("Email").withSecondEmail("Email2").withMobilePhoneNumber("89999").withWorkPhone("89777"));
@@ -60,7 +55,7 @@ public class ContactTests extends TestBase {
     }
     @Test
     public void aCreateContactTest(){
-        Contacts listBefore=app.contact().all();
+        Contacts listBefore=app.db().contacts();
         app.nav().moveToAddNew();
         ContactModel newContact=new ContactModel()
                 .withFirstName("TestName")
@@ -70,33 +65,36 @@ public class ContactTests extends TestBase {
                 .withMobilePhoneNumber("899900000")
                 .withId(listBefore.stream().mapToInt((g) -> g.getId()).max().getAsInt()+1);
         app.contact().addContact(newContact);
-        Contacts listAfter=app.contact().all();
+        Contacts listAfter=app.db().contacts();
         assertThat(listAfter.size(),equalTo(listBefore.size()+1));
         assertThat(listAfter,equalTo(listBefore.withAdded(newContact)));
     }
     @Test
-    public void aEditContactTest(){
-        Contacts listBefore=app.contact().all();
+    public void aEditContactTest() throws InterruptedException {
+        Contacts listBefore=app.db().contacts();
         ContactModel newContact=new ContactModel().withId(listBefore.iterator().next().getId());
         app.contact().editContact(0,newContact);
-        Contacts listAfter=app.contact().all();
+        Thread.sleep(1000);
+        Contacts listAfter=app.db().contacts();
         assertThat(listAfter,equalTo(listBefore.without(listBefore.iterator().next()).withAdded(newContact)));
     }
     @Test
-    public void bDeleteContactsTest(){
+    public void bDeleteContactsTest() throws InterruptedException {
         app.contact().deleteAll();
-        int sizeOfListAfter=app.contact().all().size();
+        Thread.sleep(2000);
+        int sizeOfListAfter=app.db().contacts().size();
         assertThat(0,equalTo(sizeOfListAfter));
     }
     //Добавлена проверка состояния списка
     @Test
-    public void cDeleteContactTest(){
-        int sizeBefore=app.contact().all().size();
-        Contacts contactsBefore = app.contact().all();
+    public void cDeleteContactTest() throws InterruptedException {
+        int sizeBefore=app.db().contacts().size();
+        Contacts contactsBefore = app.db().contacts();
         ContactModel contactToDelete=app.contact().getContactByIndex(1).withId(contactsBefore.iterator().next().getId());
         app.nav().moveToContacts();
-        app.contact().deleteByIndex(-1);
-        Contacts contactsAfter=app.contact().all();
+        app.contact().deleteByIndex(0);
+        Thread.sleep(2000);
+        Contacts contactsAfter=app.db().contacts();
         contactsBefore=contactsBefore.without(contactToDelete);
         assertThat(contactsAfter,equalTo(contactsBefore));
         assertThat(sizeBefore-1,equalTo(app.contact().all().size()));

@@ -2,6 +2,7 @@ package nnglebanov.auto.model;
 
 import com.google.common.collect.ForwardingSet;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +17,8 @@ public class Contacts extends ForwardingSet<ContactModel> {
     public Contacts(Contacts contacts) {
         this.delegate = new HashSet<ContactModel>(contacts.delegate);
     }
+
+    public Contacts(Collection<ContactModel> contacts) {this.delegate=new HashSet<>(contacts);}
 
     @Override
     protected Set delegate() {

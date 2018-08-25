@@ -1,12 +1,76 @@
 package nnglebanov.auto.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactModel {
+
+    @Id
+    @Column(name = "id")
+    private int id;
+    @Expose
+    @Column(name = "firstname")
+    private String firstName;
+    @Transient
+    private String middleName;
+    @Expose
+    @Column(name = "lastname")
+    private String lastName;
+    @Transient
+    private String nickName;
+    @Transient
+    private String photoPath;
+    @Transient
+    private String title;
+    @Transient
+    private String company;
+    @Expose
+    @Column(name = "address")
+    @Type(type = "text")
+    private String address;
+    @Expose
+    @Column(name = "home")
+    @Type(type = "text")
+    private String homePhone;
+    @Column(name = "mobile")
+    @Type(type = "text")
+    private String mobilePhone;
+    @Column(name = "work")
+    @Type(type = "text")
+    private String workPhone;
+    @Transient
+    private String fax;
+
+    @Expose
+    @Column(name = "email")
+    @Type(type = "text")
+    private String email1;
+    @Type(type = "text")
+    private String email2;
+    @Type(type = "text")
+    private String email3;
+    @Transient
+    private String homepage;
+    @Transient
+    private LocalDate birthday;
+    @Transient
+    private LocalDate anniversary;
+    @Transient
+    private String group;
+
+    @Column(name = "address2")
+    @Type(type = "text")
+    private String secondaryAddress;
+    @Transient
+    private String home;
+    @Transient
+    private String notes;
 
     public ContactModel withId(int id) {
         this.id = id;
@@ -63,37 +127,6 @@ public class ContactModel {
         return Objects.hash(id, firstName, middleName, lastName, nickName, photoPath, title, company, address, homePhone, mobilePhone, workPhone, fax, email1, email2, email3, homepage, birthday, anniversary, group, secondaryAddress, home, notes);
     }
 
-    private int id;
-    @Expose
-    private String firstName;
-    private String middleName;
-    @Expose
-    private String lastName;
-    private String nickName;
-    private String photoPath;
-    private String title;
-    private String company;
-    @Expose
-    private String address;
-    @Expose
-    private String homePhone;
-    private String mobilePhone;
-    private String workPhone;
-    private String fax;
-
-    @Expose
-    private String email1;
-    private String email2;
-    private String email3;
-    private String homepage;
-    private LocalDate birthday;
-    private LocalDate anniversary;
-    private String group;
-
-    private String secondaryAddress;
-    private String home;
-    private String notes;
-
     public String getAllPhones() {
         return allPhones;
     }
@@ -102,7 +135,9 @@ public class ContactModel {
         return allEmails;
     }
 
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmails;
 
     public ContactModel withUncheckedAllPhones(String allPhones) {

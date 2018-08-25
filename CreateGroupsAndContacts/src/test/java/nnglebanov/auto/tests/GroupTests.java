@@ -36,7 +36,7 @@ public class GroupTests extends TestBase {
     public void ensurePreconditions() {
         app.nav().moveToGroups();
         GroupHelper groupHelper = app.group();
-        if (groupHelper.isGroupExists() == false) {
+        if (app.db().groups().size()==0) {
             groupHelper.addNewGroup(new GroupModel());
         }
     }
@@ -47,22 +47,22 @@ public class GroupTests extends TestBase {
 
     @Test
     public void createGroupTest() {
-        Groups groupsBefore = app.group().all();
+        Groups groupsBefore = app.db().groups();
         GroupModel groupModel = new GroupModel().withName("Test").withHeader("Header").withFooter("Footer")
                 .withId(groupsBefore.stream().mapToInt((g) -> g.getId()).max().getAsInt() + 1);
         app.group().addNewGroup(groupModel);
-        Groups groupsAfter = app.group().all();
+        Groups groupsAfter = app.db().groups();
         assertThat(groupsAfter, equalTo(groupsBefore.withAdded(groupModel)));
 
     }
 
     @Test
     public void editGroupTest() {
-        Groups groupsBefore = app.group().all();
+        Groups groupsBefore = app.db().groups();
         GroupModel newGroup = new GroupModel().withName("EditedName").withHeader("EditedHeader")
                 .withFooter("EditedFooter").withId(groupsBefore.iterator().next().getId());
         app.group().editAloneGroup(newGroup);
-        Groups groupsAfter = app.group().all();
+        Groups groupsAfter = app.db().groups();
         assertThat(groupsAfter.size(), equalTo(groupsBefore.size()));
         assertThat(groupsBefore.without(groupsBefore.iterator().next()).withAdded(newGroup), equalTo(groupsAfter));
 
@@ -71,18 +71,18 @@ public class GroupTests extends TestBase {
     @Test
     public void deleteGroupsTest() {
         app.group().deleteAllGroups();
-        assertThat(0, equalTo(app.group().all().size()));
+        assertThat(0, equalTo(app.db().groups().size()));
     }
 
     //Добавлена проверка состояния списка
     @Test
     public void deleteGroupTest() {
-        int sizeBefore = app.group().all().size();
-        Groups groupsBefore=app.group().all();
+        int sizeBefore = app.db().groups().size();
+        Groups groupsBefore=app.db().groups();
         GroupModel groupToDelete=app.group().getGroupByIndex(0);
         app.nav().moveToGroups();
         app.group().deleteGroupByIndex(0);
-        Groups groupsAfter=app.group().all();
+        Groups groupsAfter=app.db().groups();
         groupsBefore=groupsBefore.without(groupToDelete);
         assertThat(sizeBefore - 1, equalTo(app.group().all().size()));
         assertThat(groupsAfter,equalTo(groupsBefore));

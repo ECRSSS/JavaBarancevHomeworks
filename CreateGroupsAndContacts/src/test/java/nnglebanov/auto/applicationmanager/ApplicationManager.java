@@ -27,6 +27,9 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private NavigationHelper navigationHelper;
     private SessionHelper sessionHelper;
+    private DbHelper dbHelper;
+
+    public DbHelper db(){return dbHelper;}
 
     public ContactHelper contact() {
         return contactHelper;
@@ -35,6 +38,7 @@ public class ApplicationManager {
     private ContactHelper contactHelper;
 
     public void init() throws IOException {
+        dbHelper=new DbHelper();
         String target = System.getProperty("target","local");
         properties.load(new FileReader(new File("src/test/resources/"+target+".properties")));
 
