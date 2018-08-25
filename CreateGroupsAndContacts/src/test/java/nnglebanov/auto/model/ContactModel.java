@@ -5,7 +5,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "addressbook")
@@ -133,6 +135,18 @@ public class ContactModel {
 
     public String getAllEmails() {
         return allEmails;
+    }
+
+    public String calculateAllPhones(){
+       return Arrays.asList(this.getHomePhone(),this.getMobilePhone(),this.getWorkPhone())
+                .stream().filter(s->!s.equals("")).collect(Collectors.joining("\n"));
+    }
+    public String calculateAllEmails(){
+        String emails="";
+        if(email1!=null){emails+=email1;}
+        if(email2!=null){emails+=email2;}
+        if(email3!=null){emails+=email3;}
+        return emails;
     }
 
     @Transient

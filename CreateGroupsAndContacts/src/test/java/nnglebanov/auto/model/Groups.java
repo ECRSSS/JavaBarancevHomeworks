@@ -3,7 +3,6 @@ package nnglebanov.auto.model;
 import com.google.common.collect.ForwardingSet;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 

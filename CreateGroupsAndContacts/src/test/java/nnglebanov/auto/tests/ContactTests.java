@@ -103,11 +103,11 @@ public class ContactTests extends TestBase {
     //Тест задания 11
     @Test
     public void dCheckContactData(){
-        ContactModel modelBack=app.contact().getContactByIndex(1);
+        ContactModel modelBack=app.db().contacts().iterator().next();
         app.nav().moveToContacts();
         ContactModel modelFront=app.contact().parseContact(1);
 
-        assertThat(modelBack.getAllEmails(),equalTo(modelFront.getAllEmails()));
-        assertThat(modelBack.getAllPhones(),equalTo(modelFront.getAllPhones()));
+        assertThat(modelBack.calculateAllEmails(),equalTo(modelFront.getAllEmails()));
+        assertThat(modelBack.calculateAllPhones(),equalTo(modelFront.getAllPhones()));
     }
 }
