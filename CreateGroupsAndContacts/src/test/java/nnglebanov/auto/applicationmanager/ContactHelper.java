@@ -6,6 +6,7 @@ import nnglebanov.auto.utils.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.Arrays;
 import java.util.List;
@@ -109,7 +110,8 @@ public class ContactHelper extends HelperBase {
         click(By.id("MassCB"));
     }
 
-    private void clickToSelectByIndex(int index) {
+
+    public void clickToSelectByIndex(int index) {
         List<WebElement> elements=driver.findElements(By.cssSelector("tr[name='entry']"));
         elements.get(index).findElement(By.cssSelector("input[name='selected[]']")).click();
     }
@@ -192,5 +194,19 @@ public class ContactHelper extends HelperBase {
         cm.withUncheckedAllEmails(allEmails);
         return cm;
     }
+
+    public void addToGroup(){
+        click(By.cssSelector("input[name='add']"));
+    }
+
+    public void selectGroupsView(String name){
+        Select select=new Select(driver.findElement(By.cssSelector("select[name='group']")));
+        select.selectByVisibleText(name);
+    }
+
+    public void clickRemoveGroup(){
+        click(By.cssSelector("input[name='remove'"));
+    }
+
 
 }

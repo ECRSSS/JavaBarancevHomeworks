@@ -40,6 +40,7 @@ public class HibernateTests {
         List<GroupModel> result = session.createQuery( "from GroupModel" ).list();
         for ( GroupModel model : result ) {
             System.out.println(model);
+            System.out.println(model.getContacts());
         }
         session.getTransaction().commit();
         session.close();
@@ -51,6 +52,7 @@ public class HibernateTests {
         List<ContactModel> result = session.createQuery( "from ContactModel where deprecated='0000-00-00'" ).list();
         for ( ContactModel model : result ) {
             System.out.println(model);
+            System.out.println(model.getGroups());
         }
         session.getTransaction().commit();
         session.close();

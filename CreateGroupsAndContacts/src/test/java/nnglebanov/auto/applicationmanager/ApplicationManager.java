@@ -37,6 +37,7 @@ public class ApplicationManager {
 
     private ContactHelper contactHelper;
 
+
     public void init() throws IOException {
         dbHelper=new DbHelper();
         String target = System.getProperty("target","local");

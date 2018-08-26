@@ -6,13 +6,19 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "addressbook")
 public class ContactModel {
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupModel> groups=new HashSet<>();
     @Id
     @Column(name = "id")
     private int id;
@@ -63,8 +69,7 @@ public class ContactModel {
     private LocalDate birthday;
     @Transient
     private LocalDate anniversary;
-    @Transient
-    private String group;
+
 
     @Column(name = "address2")
     @Type(type = "text")
@@ -77,6 +82,10 @@ public class ContactModel {
     public ContactModel withId(int id) {
         this.id = id;
         return this;
+    }
+
+    public Groups getGroups(){
+        return new Groups(groups);
     }
 
     public ContactModel() {
@@ -126,7 +135,7 @@ public class ContactModel {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, middleName, lastName, nickName, photoPath, title, company, address, homePhone, mobilePhone, workPhone, fax, email1, email2, email3, homepage, birthday, anniversary, group, secondaryAddress, home, notes);
+        return Objects.hash(id, firstName, middleName, lastName, nickName, photoPath, title, company, address, homePhone, mobilePhone, workPhone, fax, email1, email2, email3, homepage, birthday, anniversary, secondaryAddress, home, notes);
     }
 
     public String getAllPhones() {
@@ -283,9 +292,6 @@ public class ContactModel {
         return anniversary;
     }
 
-    public String getGroup() {
-        return group;
-    }
 
     public String getSecondaryAddress() {
         return secondaryAddress;
