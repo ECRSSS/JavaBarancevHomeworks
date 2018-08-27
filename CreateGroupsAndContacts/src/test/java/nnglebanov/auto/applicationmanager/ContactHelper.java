@@ -51,9 +51,9 @@ public class ContactHelper extends HelperBase {
         return cm;
     }
     private String phoneFilter(String phone){
-        phone.replace("(","");
-        phone.replace(")","");
-        phone.replace("+","");
+        phone=phone.replace("(","");
+        phone=phone.replace(")","");
+        phone=phone.replace("+","");
         return phone;
     }
 
