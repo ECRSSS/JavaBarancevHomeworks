@@ -115,6 +115,9 @@ public class ContactHelper extends HelperBase {
         List<WebElement> elements=driver.findElements(By.cssSelector("tr[name='entry']"));
         elements.get(index).findElement(By.cssSelector("input[name='selected[]']")).click();
     }
+    public void clickToSelectById(int id){
+        click(By.cssSelector("input[id='"+id+"']"));
+    }
 
     private void clickOnEditLinkByIndex(int index) {
         List<WebElement> elements = driver.findElements(By.xpath("//img[@title='Edit']//.."));
@@ -195,8 +198,15 @@ public class ContactHelper extends HelperBase {
         return cm;
     }
 
-    public void addToGroup(){
+    public void addToGroup(String groupName){
+        Select select=new Select(driver.findElement(By.cssSelector("select[name='to_group']")));
+        select.selectByVisibleText(groupName);
         click(By.cssSelector("input[name='add']"));
+    }
+
+    public String getGroupNameFromDetailsPage(int id){
+        driver.get("http://localhost/addressbook/view.php?id="+id);
+        return driver.findElement(By.cssSelector("i a")).getText();
     }
 
     public void selectGroupsView(String name){

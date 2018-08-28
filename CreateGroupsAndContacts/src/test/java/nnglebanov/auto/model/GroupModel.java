@@ -28,7 +28,9 @@ public class GroupModel {
     @Column(name="group_id")
     private int id;
 
-    @ManyToMany(mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups"
+            ,joinColumns =  @JoinColumn(name = "group_id"),inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<ContactModel> contacts=new HashSet<>();
 
     public Contacts getContacts(){
