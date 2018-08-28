@@ -147,7 +147,7 @@ public class ContactModel {
     }
 
     public String calculateAllPhones(){
-       return Arrays.asList(this.getHomePhone(),this.getMobilePhone(),this.getWorkPhone())
+       return Arrays.asList(phoneFilter(this.getHomePhone()),phoneFilter(this.getMobilePhone()),phoneFilter(this.getWorkPhone()))
                 .stream().filter(s->!s.equals("")).collect(Collectors.joining("\n"));
     }
     public String calculateAllEmails(){
@@ -156,6 +156,11 @@ public class ContactModel {
         if(email2!=null){emails+=email2;}
         if(email3!=null){emails+=email3;}
         return emails;
+    }
+    private String phoneFilter(String phone){
+        phone=phone.replace("(","");
+        phone=phone.replace(")","");
+        return phone;
     }
 
     @Transient
