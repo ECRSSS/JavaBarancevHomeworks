@@ -3,4 +3,5 @@ include 'sandbox'
 findProject(':sandbox')?.name = 'javafortesters'
 include 'task2'
 include 'CreateGroupsAndContacts'
+include 'mantis'
 

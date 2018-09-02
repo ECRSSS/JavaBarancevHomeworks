@@ -17,10 +17,21 @@ public class ApplicationManager {
     private final Properties properties;
     private WebDriver driver;
 
+    private MailHelper mail;
+    public MailHelper mail(){
+        return mail;
+    }
+    private DBHelper db;
+    public DBHelper db(){return db;}
+    private ActionHelper action;
+    public ActionHelper action(){return action;}
+
     public ApplicationManager(String browser) {
 
         this.browser = browser;
         properties = new Properties();
+        mail=new MailHelper(this);
+        db=new DBHelper();
     }
 
     public void init() throws IOException {
@@ -36,9 +47,16 @@ public class ApplicationManager {
         }
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get(properties.getProperty("web.baseUrl"));
+        action=new ActionHelper(driver);
     }
 
     public void stop() {
         driver.quit();
+    }
+    public HttpSession newSession(){
+        return new HttpSession(this);
+    }
+    public String getProperty(String key){
+        return properties.getProperty(key);
     }
 }
