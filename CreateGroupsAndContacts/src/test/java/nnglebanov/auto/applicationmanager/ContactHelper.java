@@ -197,13 +197,18 @@ public class ContactHelper extends HelperBase {
         cm.withUncheckedAllEmails(allEmails);
         return cm;
     }
-
+    public void selectGroupView(String groupName){
+        Select select=new Select(driver.findElement(By.cssSelector("#right select")));
+        select.selectByVisibleText(groupName);
+    }
     public void addToGroup(String groupName){
         Select select=new Select(driver.findElement(By.cssSelector("select[name='to_group']")));
         select.selectByVisibleText(groupName);
         click(By.cssSelector("input[name='add']"));
     }
-
+    public void clickToRemoveFromGroup(){
+        click(By.cssSelector("input[name='remove']"));
+    }
     public String getGroupNameFromDetailsPage(int id){
         driver.get("http://localhost/addressbook/view.php?id="+id);
         return driver.findElement(By.cssSelector("i a")).getText();
