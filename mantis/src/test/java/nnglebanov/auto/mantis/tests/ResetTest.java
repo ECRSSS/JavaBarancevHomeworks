@@ -10,6 +10,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.mail.MessagingException;
+import javax.xml.rpc.ServiceException;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,8 +20,10 @@ public class ResetTest extends TestBase {
         app.mail().start();
     }
     @Test
-    public void resetPasswordTest() throws IOException, MessagingException {
+    public void resetPasswordTest() throws IOException, MessagingException, ServiceException {
+        skipIfNotFixed(1);
         app.action().login();
+        app.action().goToManage();
         UserModel user=app.db().users().stream().filter(o->!o.getEmail().equals("root@localhost")).findFirst().get();
         app.action().goToManageUsers();
         app.action().toUser(user).resetPassword();

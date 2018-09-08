@@ -14,6 +14,10 @@ public class ActionHelper extends HelperBase{
         click(By.cssSelector("input.button"));
         return this;
     }
+    public ActionHelper goToManage(){
+        click(By.cssSelector("td.menu a:nth-child(7)"));
+        return this;
+    }
     public ActionHelper goToManageUsers() {
         click(By.cssSelector(".bracket-link:first-child a"));
         return this;
