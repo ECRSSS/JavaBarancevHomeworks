@@ -4,6 +4,7 @@ import nnglebanov.auto.mantis.applicationmanager.HttpSession;
 import nnglebanov.auto.mantis.base.TestBase;
 import nnglebanov.auto.mantis.model.MailMessage;
 import nnglebanov.auto.mantis.model.UserModel;
+import org.json.JSONException;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -20,8 +21,8 @@ public class ResetTest extends TestBase {
         app.mail().start();
     }
     @Test
-    public void resetPasswordTest() throws IOException, MessagingException, ServiceException {
-        skipIfNotFixed(1);
+    public void resetPasswordTest() throws IOException, MessagingException, JSONException {
+        skipIfNotFixedBugify(268);
         app.action().login();
         app.action().goToManage();
         UserModel user=app.db().users().stream().filter(o->!o.getEmail().equals("root@localhost")).findFirst().get();
