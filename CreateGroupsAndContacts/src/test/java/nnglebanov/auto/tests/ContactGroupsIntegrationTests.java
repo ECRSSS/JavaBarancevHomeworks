@@ -37,7 +37,7 @@ public class ContactGroupsIntegrationTests extends TestBase {
         group=app.db().groups().iterator().next();
         app.nav().moveToContacts();
         app.contact().clickToSelectByIndex(0);
-        app.contact().addToGroup();
+        app.contact().addToGroup(group.getGroupName());
         assertThat(app.db().contacts()
                 .iterator().next().getGroups()
                 .contains(group),equalTo(true));
