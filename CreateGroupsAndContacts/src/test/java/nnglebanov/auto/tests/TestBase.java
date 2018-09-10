@@ -13,7 +13,7 @@ public class TestBase {
 
     @BeforeSuite
     public void setUp() throws IOException {
-        app.init();
+        app.initRemote();
 
     }
 
