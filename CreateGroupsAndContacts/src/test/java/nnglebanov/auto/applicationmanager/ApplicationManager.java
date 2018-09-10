@@ -39,8 +39,8 @@ public class ApplicationManager {
 
     public void init() throws IOException {
         dbHelper=new DbHelper();
-        String target = System.getProperty("target","local");
-        properties.load(new FileReader(new File("src/test/resources/"+target+".properties")));
+        System.setProperty("webdriver.chrome.driver", "C://SeleniumDrivers//chromedriver.exe");
+        properties.load(new FileReader(new File("src/test/resources/local.properties")));
 
         if (browser.equals(BrowserType.CHROME)) {
             driver = new ChromeDriver();
