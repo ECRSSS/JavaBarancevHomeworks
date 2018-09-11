@@ -69,7 +69,6 @@ public class ContactTests extends TestBase {
         assertThat(listAfter.size(),equalTo(listBefore.size()+1));
         assertThat(listAfter,equalTo(listBefore.withAdded(newContact)));
     }
-    @Test
     public void aEditContactTest() throws InterruptedException {
         Contacts listBefore=app.db().contacts();
         ContactModel newContact=new ContactModel().withId(listBefore.iterator().next().getId());

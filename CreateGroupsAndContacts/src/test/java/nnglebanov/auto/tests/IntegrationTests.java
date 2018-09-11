@@ -29,7 +29,6 @@ public class IntegrationTests extends TestBase {
         app.contact().addToGroup(groupModel.getGroupName());
         app.nav().moveToContacts();
     }
-    @Test
     public void addToGroup() throws InterruptedException {
         if(app.db().contacts().stream().filter(o->o.getGroups().size()==0).toArray().length==0)
         {prepareContact();}
